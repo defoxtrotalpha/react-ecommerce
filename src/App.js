@@ -3,6 +3,7 @@ import SignUp from "./features/auth/components/SignUp";
 import Homepage from "./pages/Homepage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+import CartPage from "./pages/CartPage";
 
 import {
   createBrowserRouter,
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/SignUp",
     element: <SignUpPage></SignUpPage>,
+  },
+  {
+    path: "/cart",
+    element: <CartPage></CartPage>,
   },
 ]);
 
