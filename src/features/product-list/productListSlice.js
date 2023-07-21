@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import  fetchCount  from './counterAPI.js';
+import  fetchCount  from './productListAPI';
 
 const initialState = {
   value: 0,
@@ -11,7 +11,6 @@ const initialState = {
 // will call the thunk with the `dispatch` function as the first argument. Async
 // code can then be executed and other actions can be dispatched. Thunks are
 // typically used to make async requests.
-
 export const incrementAsync = createAsyncThunk(
   'counter/fetchCount',
   async (amount) => {
@@ -21,7 +20,7 @@ export const incrementAsync = createAsyncThunk(
   }
 );
 
-export const counterSlice = createSlice({
+export const productListSlice = createSlice({
   name: 'counter',
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
@@ -48,11 +47,11 @@ export const counterSlice = createSlice({
   },
 });
 
-export const { increment,} = counterSlice.actions;
+export const { increment,} = productListSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectCount = (state) => state.counter.value;
 
-export default counterSlice.reducer;
+export default productListSlice.reducer;
