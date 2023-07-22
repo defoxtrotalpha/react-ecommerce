@@ -4,6 +4,8 @@ import Homepage from "./pages/Homepage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import CartPage from "./pages/CartPage";
+import Checkout from "./features/checkout/Checkout";
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 import {
   createBrowserRouter,
@@ -28,6 +30,15 @@ const router = createBrowserRouter([
   {
     path: "/cart",
     element: <CartPage></CartPage>,
+  },
+  {
+    //for testing purposes
+    path: "/checkout",
+    element: <Checkout></Checkout>,
+  },
+  {
+    path: "/product-detail",
+    element: <ProductDetailPage></ProductDetailPage>,
   },
 ]);
 
