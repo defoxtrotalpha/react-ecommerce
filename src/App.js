@@ -4,15 +4,10 @@ import Homepage from "./pages/Homepage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import CartPage from "./pages/CartPage";
-import Checkout from "./features/checkout/Checkout";
 import ProductDetailPage from "./pages/ProductDetailPage";
+import CheckoutPage from "./pages/CheckoutPage";
 
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Link,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
@@ -32,9 +27,8 @@ const router = createBrowserRouter([
     element: <CartPage></CartPage>,
   },
   {
-    //for testing purposes
     path: "/checkout",
-    element: <Checkout></Checkout>,
+    element: <CheckoutPage></CheckoutPage>,
   },
   {
     path: "/product-detail",

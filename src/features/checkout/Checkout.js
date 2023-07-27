@@ -257,7 +257,7 @@ export default function Checkout() {
             or{" "}
             <Link
               class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-              to="/signup"
+              to="/"
             >
               Continue Shopping
               <ArrowRightIcon className="h-6 w-6 inline" aria-hidden="true" />
