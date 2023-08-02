@@ -4,6 +4,7 @@ import { fetchAllProducts, fetchProductsByFilters } from "./productAPI";
 const initialState = {
   products: [],
   status: "idle",
+  totalItems: 0,
 };
 
 // The function below is called a thunk and allows us to perform async logic. It
@@ -22,8 +23,8 @@ export const fetchAllProductsAsync = createAsyncThunk(
 
 export const fetchAllProductsByFiltersAsync = createAsyncThunk(
   "product/fetchAllProductsByFilters",
-  async ({ filterArr, sortArr }) => {
-    const response = await fetchProductsByFilters(filterArr, sortArr);
+  async ({ filterArr, sortArr, pageArr }) => {
+    const response = await fetchProductsByFilters(filterArr, sortArr, pageArr);
     // The value we return becomes the `fulfilled` action payload
     return response.data;
   }
@@ -54,7 +55,8 @@ export const productSlice = createSlice({
       })
       .addCase(fetchAllProductsByFiltersAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.products = action.payload;
+        state.products = action.payload.products;
+        state.totalItems = action.payload.totalItems;
       });
   },
 });
@@ -63,5 +65,6 @@ export const productSlice = createSlice({
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectAllProducts = (state) => state.product.products;
+export const selectTotalItems = (state) => state.product.totalItems;
 
 export default productSlice.reducer;

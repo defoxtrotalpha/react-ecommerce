@@ -4,6 +4,7 @@ import {
   selectAllProducts,
   fetchAllProductsAsync,
   fetchAllProductsByFiltersAsync,
+  selectTotalItems,
 } from "../productSlice";
 
 import { Fragment } from "react";
@@ -102,6 +103,9 @@ export default function ProductList() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [filterArr, setFilterArr] = useState([]);
   const [sortArr, setSortArr] = useState([]);
+  const [pageArr, setPageArr] = useState([{ _page: 1 }, { _limit: 10 }]);
+  const products = useSelector(selectAllProducts);
+  const totalItems = useSelector(selectTotalItems);
 
   const handleFilter = (e, filterType, option) => {
     //TODO: on server we will need to support multiple categories
@@ -122,10 +126,20 @@ export default function ProductList() {
     setSortArr(newsortArr);
   };
 
-  const products = useSelector(selectAllProducts);
+  const handlePagination = (pageNo, limit) => {
+    if (limit !== 0 && pageNo !== 0) {
+      const newPageArr = [{ _page: pageNo }, { _limit: limit }];
+      setPageArr(newPageArr);
+    }
+  };
+
   useEffect(() => {
-    dispatch(fetchAllProductsByFiltersAsync({ filterArr, sortArr }));
-  }, [dispatch, filterArr, sortArr]);
+    dispatch(fetchAllProductsByFiltersAsync({ filterArr, sortArr, pageArr }));
+  }, [dispatch, filterArr, sortArr, pageArr]);
+
+  useEffect(() => {
+    setPageArr([{ _page: 1 }, { _limit: 10 }]);
+  }, [totalItems, sortArr]);
 
   return (
     <div className="bg-white">
@@ -224,12 +238,16 @@ export default function ProductList() {
           </section>
         </main>
       </div>
-      <Pagination></Pagination>
+      <Pagination
+        handlePagination={handlePagination}
+        totalItems={totalItems}
+        pageArr={pageArr}
+      ></Pagination>
     </div>
   );
 }
 
-function Pagination() {
+function Pagination({ handlePagination, totalItems, pageArr }) {
   return (
     <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
       <div className="flex flex-1 justify-between sm:hidden">
@@ -249,9 +267,19 @@ function Pagination() {
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
           <p className="text-sm text-gray-700">
-            Showing <span className="font-medium">1</span> to{" "}
-            <span className="font-medium">10</span> of{" "}
-            <span className="font-medium">97</span> results
+            Showing{" "}
+            <span className="font-medium">
+              {totalItems > 0
+                ? pageArr[0]._page * pageArr[1]._limit - (pageArr[1]._limit - 1)
+                : 0}
+            </span>{" "}
+            to{" "}
+            <span className="font-medium">
+              {totalItems > pageArr[1]._limit * pageArr[0]._page
+                ? pageArr[0]._page * pageArr[1]._limit
+                : totalItems}
+            </span>{" "}
+            of <span className="font-medium">{totalItems}</span> results
           </p>
         </div>
         <div>
@@ -259,6 +287,18 @@ function Pagination() {
             className="isolate inline-flex -space-x-px rounded-md shadow-sm"
             aria-label="Pagination"
           >
+            <div className="px-5">
+              <p className="inline">Items per page? </p>
+              <input
+                className="border border-gray-400 rounded-md w-16"
+                type="number"
+                min="10"
+                oninput="validity.valid || (value = '1');"
+                placeholder="10"
+                pattern="[1-9][0-9]*"
+                onChange={(e) => handlePagination(1, e.target.value)}
+              ></input>
+            </div>
             <a
               href="#"
               className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
@@ -267,19 +307,23 @@ function Pagination() {
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
             </a>
             {/* Current: "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0" */}
-            <a
-              href="#"
-              aria-current="page"
-              className="relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              1
-            </a>
-            <a
-              href="#"
-              className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
-            >
-              2
-            </a>
+            {Array.from({
+              length: Math.ceil(totalItems / pageArr[1]._limit),
+            }).map((el, index) => (
+              <div
+                //Passing pageNo as an argument to handlePagination
+                onClick={(e) => handlePagination(index + 1, pageArr[1]._limit)}
+                aria-current="page"
+                className={`relative cursor-pointer z-10 inline-flex items-center ${
+                  index + 1 === pageArr[0]._page
+                    ? "bg-indigo-600 text-white"
+                    : "text-gray-400"
+                } px-4 py-2 text-sm font-semibold focus:z-20 focus-visible:outline 
+                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
+              >
+                {index + 1}
+              </div>
+            ))}
             <a
               href="#"
               className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"

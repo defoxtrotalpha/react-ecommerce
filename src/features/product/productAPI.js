@@ -7,7 +7,7 @@ export function fetchAllProducts() {
   });
 }
 
-export function fetchProductsByFilters(filterArr, sortArr) {
+export function fetchProductsByFilters(filterArr, sortArr, pageArr) {
   return new Promise(async (resolve) => {
     //filterArr = {"category":"smartphone"}
     //endpoint= "http://localhost:8080/products?category=smartphone&price=10&.."
@@ -25,11 +25,22 @@ export function fetchProductsByFilters(filterArr, sortArr) {
         queryString += `${Object.keys(sortObj)}=${Object.values(sortObj)}&`;
       });
     }
+    if (pageArr) {
+      pageArr.forEach((pageObj) => {
+        queryString += `${Object.keys(pageObj)}=${Object.values(pageObj)}&`;
+      });
+    }
 
     const response = await fetch(
       "http://localhost:8080/products?" + queryString
     );
     const data = await response.json();
-    resolve({ data });
+    const totalItems = await response.headers.get("X-Total-Count");
+    resolve({
+      data: {
+        products: data,
+        totalItems: +totalItems,
+      },
+    });
   });
 }
