@@ -2013,13 +2013,497 @@
     {
       "email": "user1@test.com",
       "password": "Qwerty123",
-      "id": 1
+      "id": 1,
+      "addresses": [
+        {
+          "name": "Mals",
+          "email": "mal123@gmail.com",
+          "street": "222 St ZTE",
+          "city": "Karachi",
+          "state": "Sindh",
+          "zip": "12345",
+          "phone": "03124433434"
+        },
+        {
+          "name": "Bilal",
+          "email": "bilalkhan81897@live.com",
+          "street": "555 Rd",
+          "city": "Isb",
+          "state": "Federal",
+          "zip": "111",
+          "phone": "312222222"
+        }
+      ]
     },
     {
       "email": "user2@test.com",
       "password": "Qwerty123",
-      "id": 2
+      "id": 2,
+      "addresses": []
     }
   ],
-  "cart": []
+  "cart": [
+    {
+      "title": "Handcraft Chinese style",
+      "description": "Handcraft Chinese style art luxury palace hotel villa mansion home decor ceramic vase with brass fruit plate",
+      "price": 60,
+      "discountPercentage": 15.34,
+      "rating": 4.44,
+      "stock": 7,
+      "brand": "luxury palace",
+      "category": "home-decoration",
+      "thumbnail": "https://i.dummyjson.com/data/products/29/thumbnail.webp",
+      "images": [
+        "https://i.dummyjson.com/data/products/29/1.jpg",
+        "https://i.dummyjson.com/data/products/29/2.jpg",
+        "https://i.dummyjson.com/data/products/29/3.webp",
+        "https://i.dummyjson.com/data/products/29/4.webp",
+        "https://i.dummyjson.com/data/products/29/thumbnail.webp"
+      ],
+      "quantity": 1,
+      "user": 1,
+      "id": 1
+    }
+  ],
+  "orders": [
+    {
+      "items": [
+        {
+          "title": "iPhone X",
+          "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+          "price": 899,
+          "discountPercentage": 17.94,
+          "rating": 4.44,
+          "stock": 34,
+          "brand": "Apple",
+          "category": "smartphones",
+          "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/2/1.jpg",
+            "https://i.dummyjson.com/data/products/2/2.jpg",
+            "https://i.dummyjson.com/data/products/2/3.jpg",
+            "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+          ],
+          "quantity": 3,
+          "user": 1,
+          "id": 1
+        },
+        {
+          "title": "MacBook Pro",
+          "description": "MacBook Pro 2021 with mini-LED display may launch between September, November",
+          "price": 1749,
+          "discountPercentage": 11.02,
+          "rating": 4.57,
+          "stock": 83,
+          "brand": "Apple",
+          "category": "laptops",
+          "thumbnail": "https://i.dummyjson.com/data/products/6/thumbnail.png",
+          "images": [
+            "https://i.dummyjson.com/data/products/6/1.png",
+            "https://i.dummyjson.com/data/products/6/2.jpg",
+            "https://i.dummyjson.com/data/products/6/3.png",
+            "https://i.dummyjson.com/data/products/6/4.jpg"
+          ],
+          "quantity": 2,
+          "user": 1,
+          "id": 2
+        },
+        {
+          "title": "HP Pavilion 15-DK1056WM",
+          "description": "HP Pavilion 15-DK1056WM Gaming Laptop 10th Gen Core i5, 8GB, 256GB SSD, GTX 1650 4GB, Windows 10",
+          "price": 1099,
+          "discountPercentage": 6.18,
+          "rating": 4.43,
+          "stock": 89,
+          "brand": "HP Pavilion",
+          "category": "laptops",
+          "thumbnail": "https://i.dummyjson.com/data/products/10/thumbnail.jpeg",
+          "images": [
+            "https://i.dummyjson.com/data/products/10/1.jpg",
+            "https://i.dummyjson.com/data/products/10/2.jpg",
+            "https://i.dummyjson.com/data/products/10/3.jpg",
+            "https://i.dummyjson.com/data/products/10/thumbnail.jpeg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 3
+        }
+      ],
+      "totalItems": 6,
+      "totalPrice": 7294,
+      "user": {
+        "email": "user1@test.com",
+        "password": "Qwerty123",
+        "id": 1,
+        "addresses": [
+          {
+            "name": "John Doe",
+            "email": "user1@test.com",
+            "street": "123 Mn St",
+            "city": "Karachi",
+            "state": "Sindh",
+            "zip": "12345",
+            "phone": "03125563335"
+          },
+          {
+            "name": "Doe",
+            "email": "user2@test.com",
+            "street": "321 St",
+            "city": "Rawalpindi",
+            "state": "Punjab",
+            "zip": "46000",
+            "phone": "03335741353"
+          }
+        ]
+      },
+      "selectedAddress": {
+        "name": "Doe",
+        "email": "user2@test.com",
+        "street": "321 St",
+        "city": "Rawalpindi",
+        "state": "Punjab",
+        "zip": "46000",
+        "phone": "03335741353"
+      },
+      "paymentMethod": "card",
+      "status": "pending",
+      "id": 7
+    },
+    {
+      "items": [
+        {
+          "title": "MacBook Pro",
+          "description": "MacBook Pro 2021 with mini-LED display may launch between September, November",
+          "price": 1749,
+          "discountPercentage": 11.02,
+          "rating": 4.57,
+          "stock": 83,
+          "brand": "Apple",
+          "category": "laptops",
+          "thumbnail": "https://i.dummyjson.com/data/products/6/thumbnail.png",
+          "images": [
+            "https://i.dummyjson.com/data/products/6/1.png",
+            "https://i.dummyjson.com/data/products/6/2.jpg",
+            "https://i.dummyjson.com/data/products/6/3.png",
+            "https://i.dummyjson.com/data/products/6/4.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 1
+        },
+        {
+          "title": "Huawei P30",
+          "description": "Huawei’s re-badged P30 Pro New Edition was officially unveiled yesterday in Germany and now the device has made its way to the UK.",
+          "price": 499,
+          "discountPercentage": 10.58,
+          "rating": 4.09,
+          "stock": 32,
+          "brand": "Huawei",
+          "category": "smartphones",
+          "thumbnail": "https://i.dummyjson.com/data/products/5/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/5/1.jpg",
+            "https://i.dummyjson.com/data/products/5/2.jpg",
+            "https://i.dummyjson.com/data/products/5/3.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 2
+        },
+        {
+          "title": "Samsung Galaxy Book",
+          "description": "Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched",
+          "price": 1499,
+          "discountPercentage": 4.15,
+          "rating": 4.25,
+          "stock": 50,
+          "brand": "Samsung",
+          "category": "laptops",
+          "thumbnail": "https://i.dummyjson.com/data/products/7/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/7/1.jpg",
+            "https://i.dummyjson.com/data/products/7/2.jpg",
+            "https://i.dummyjson.com/data/products/7/3.jpg",
+            "https://i.dummyjson.com/data/products/7/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 3
+        },
+        {
+          "title": "Elbow Macaroni - 400 gm",
+          "description": "Product details of Bake Parlor Big Elbow Macaroni - 400 gm",
+          "price": 14,
+          "discountPercentage": 15.58,
+          "rating": 4.57,
+          "stock": 146,
+          "brand": "Bake Parlor Big",
+          "category": "groceries",
+          "thumbnail": "https://i.dummyjson.com/data/products/22/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/22/1.jpg",
+            "https://i.dummyjson.com/data/products/22/2.jpg",
+            "https://i.dummyjson.com/data/products/22/3.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 4
+        },
+        {
+          "title": "Infinix INBOOK",
+          "description": "Infinix Inbook X1 Ci3 10th 8GB 256GB 14 Win10 Grey – 1 Year Warranty",
+          "price": 1099,
+          "discountPercentage": 11.83,
+          "rating": 4.54,
+          "stock": 96,
+          "brand": "Infinix",
+          "category": "laptops",
+          "thumbnail": "https://i.dummyjson.com/data/products/9/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/9/1.jpg",
+            "https://i.dummyjson.com/data/products/9/2.png",
+            "https://i.dummyjson.com/data/products/9/3.png",
+            "https://i.dummyjson.com/data/products/9/4.jpg",
+            "https://i.dummyjson.com/data/products/9/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 5
+        }
+      ],
+      "totalItems": 5,
+      "totalPrice": 4860,
+      "user": {
+        "email": "user1@test.com",
+        "password": "Qwerty123",
+        "id": 1,
+        "addresses": [
+          {
+            "name": "John Doe",
+            "email": "user1@test.com",
+            "street": "123 Mn St",
+            "city": "Karachi",
+            "state": "Sindh",
+            "zip": "12345",
+            "phone": "03125563335"
+          },
+          {
+            "name": "Doe",
+            "email": "user2@test.com",
+            "street": "321 St",
+            "city": "Rawalpindi",
+            "state": "Punjab",
+            "zip": "46000",
+            "phone": "03335741353"
+          }
+        ]
+      },
+      "selectedAddress": {
+        "name": "Doe",
+        "email": "user2@test.com",
+        "street": "321 St",
+        "city": "Rawalpindi",
+        "state": "Punjab",
+        "zip": "46000",
+        "phone": "03335741353"
+      },
+      "paymentMethod": "card",
+      "status": "pending",
+      "id": 8
+    },
+    {
+      "items": [
+        {
+          "title": "Huawei P30",
+          "description": "Huawei’s re-badged P30 Pro New Edition was officially unveiled yesterday in Germany and now the device has made its way to the UK.",
+          "price": 499,
+          "discountPercentage": 10.58,
+          "rating": 4.09,
+          "stock": 32,
+          "brand": "Huawei",
+          "category": "smartphones",
+          "thumbnail": "https://i.dummyjson.com/data/products/5/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/5/1.jpg",
+            "https://i.dummyjson.com/data/products/5/2.jpg",
+            "https://i.dummyjson.com/data/products/5/3.jpg"
+          ],
+          "quantity": 2,
+          "user": 1,
+          "id": 2
+        },
+        {
+          "title": "Samsung Galaxy Book",
+          "description": "Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched",
+          "price": 1499,
+          "discountPercentage": 4.15,
+          "rating": 4.25,
+          "stock": 50,
+          "brand": "Samsung",
+          "category": "laptops",
+          "thumbnail": "https://i.dummyjson.com/data/products/7/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/7/1.jpg",
+            "https://i.dummyjson.com/data/products/7/2.jpg",
+            "https://i.dummyjson.com/data/products/7/3.jpg",
+            "https://i.dummyjson.com/data/products/7/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 3
+        },
+        {
+          "title": "Elbow Macaroni - 400 gm",
+          "description": "Product details of Bake Parlor Big Elbow Macaroni - 400 gm",
+          "price": 14,
+          "discountPercentage": 15.58,
+          "rating": 4.57,
+          "stock": 146,
+          "brand": "Bake Parlor Big",
+          "category": "groceries",
+          "thumbnail": "https://i.dummyjson.com/data/products/22/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/22/1.jpg",
+            "https://i.dummyjson.com/data/products/22/2.jpg",
+            "https://i.dummyjson.com/data/products/22/3.jpg"
+          ],
+          "quantity": 5,
+          "user": 1,
+          "id": 4
+        },
+        {
+          "title": "Infinix INBOOK",
+          "description": "Infinix Inbook X1 Ci3 10th 8GB 256GB 14 Win10 Grey – 1 Year Warranty",
+          "price": 1099,
+          "discountPercentage": 11.83,
+          "rating": 4.54,
+          "stock": 96,
+          "brand": "Infinix",
+          "category": "laptops",
+          "thumbnail": "https://i.dummyjson.com/data/products/9/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/9/1.jpg",
+            "https://i.dummyjson.com/data/products/9/2.png",
+            "https://i.dummyjson.com/data/products/9/3.png",
+            "https://i.dummyjson.com/data/products/9/4.jpg",
+            "https://i.dummyjson.com/data/products/9/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 5
+        },
+        {
+          "title": "iPhone X",
+          "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+          "price": 899,
+          "discountPercentage": 17.94,
+          "rating": 4.44,
+          "stock": 34,
+          "brand": "Apple",
+          "category": "smartphones",
+          "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/2/1.jpg",
+            "https://i.dummyjson.com/data/products/2/2.jpg",
+            "https://i.dummyjson.com/data/products/2/3.jpg",
+            "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+          ],
+          "quantity": 2,
+          "user": 1,
+          "id": 6
+        },
+        {
+          "title": "Plant Hanger For Home",
+          "description": "Boho Decor Plant Hanger For Home Wall Decoration Macrame Wall Hanging Shelf",
+          "price": 41,
+          "discountPercentage": 17.86,
+          "rating": 4.08,
+          "stock": 131,
+          "brand": "Boho Decor",
+          "category": "home-decoration",
+          "thumbnail": "https://i.dummyjson.com/data/products/26/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/26/1.jpg",
+            "https://i.dummyjson.com/data/products/26/2.jpg",
+            "https://i.dummyjson.com/data/products/26/3.jpg",
+            "https://i.dummyjson.com/data/products/26/4.jpg",
+            "https://i.dummyjson.com/data/products/26/5.jpg",
+            "https://i.dummyjson.com/data/products/26/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 7
+        },
+        {
+          "title": "Handcraft Chinese style",
+          "description": "Handcraft Chinese style art luxury palace hotel villa mansion home decor ceramic vase with brass fruit plate",
+          "price": 60,
+          "discountPercentage": 15.34,
+          "rating": 4.44,
+          "stock": 7,
+          "brand": "luxury palace",
+          "category": "home-decoration",
+          "thumbnail": "https://i.dummyjson.com/data/products/29/thumbnail.webp",
+          "images": [
+            "https://i.dummyjson.com/data/products/29/1.jpg",
+            "https://i.dummyjson.com/data/products/29/2.jpg",
+            "https://i.dummyjson.com/data/products/29/3.webp",
+            "https://i.dummyjson.com/data/products/29/4.webp",
+            "https://i.dummyjson.com/data/products/29/thumbnail.webp"
+          ],
+          "quantity": 4,
+          "user": 1,
+          "id": 8
+        }
+      ],
+      "totalItems": 16,
+      "totalPrice": 5745,
+      "user": {
+        "email": "user1@test.com",
+        "password": "Qwerty123",
+        "id": 1,
+        "addresses": [
+          {
+            "name": "John Doe",
+            "email": "user1@test.com",
+            "street": "123 Mn St",
+            "city": "Karachi",
+            "state": "Sindh",
+            "zip": "12345",
+            "phone": "03125563335"
+          },
+          {
+            "name": "Doe",
+            "email": "user2@test.com",
+            "street": "321 St",
+            "city": "Rawalpindi",
+            "state": "Punjab",
+            "zip": "46000",
+            "phone": "03335741353"
+          },
+          {
+            "name": "Bilal",
+            "email": "bilalkhan81897@live.com",
+            "street": "555 Rd ",
+            "city": "Isb",
+            "state": "Federal",
+            "zip": "111",
+            "phone": "0312222222"
+          }
+        ]
+      },
+      "selectedAddress": {
+        "name": "Bilal",
+        "email": "bilalkhan81897@live.com",
+        "street": "555 Rd ",
+        "city": "Isb",
+        "state": "Federal",
+        "zip": "111",
+        "phone": "0312222222"
+      },
+      "paymentMethod": "card",
+      "status": "pending",
+      "id": 9
+    }
+  ]
 }

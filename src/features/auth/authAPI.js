@@ -20,7 +20,13 @@ export function checkUser(logInInfo) {
 
     if (data.length) {
       if (password === data[0].password) {
-        resolve({ data: data[0] });
+        resolve({
+          data: {
+            email: data[0].email,
+            password: data[0].password,
+            id: data[0].id,
+          },
+        });
       } else {
         reject({ message: "Wrong credentials" });
       }

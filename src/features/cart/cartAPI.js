@@ -26,13 +26,12 @@ export function updateCart(update) {
 
 export function deleteFromCart(itemId) {
   return new Promise(async (resolve) => {
-    const response = await fetch(`http://localhost:8080/cart/` + itemId, {
+    await fetch(`http://localhost:8080/cart/` + itemId, {
       method: "DELETE",
       headers: { "content-type": "application/json" },
     });
-    const data = await response.json();
     //TO DO: On server it will only relevant information about the user (not password)
-    resolve({ data: { id: itemId } });
+    resolve({ status: "success" });
   });
 }
 
@@ -41,5 +40,16 @@ export function fetchItemsByUserId(userId) {
     const response = await fetch("http://localhost:8080/cart?user=" + userId);
     const data = await response.json();
     resolve({ data });
+  });
+}
+
+export function resetCart(userId) {
+  return new Promise(async (resolve) => {
+    const response = await fetchItemsByUserId(userId);
+    const items = response.data;
+    items.forEach(async (item) => {
+      await deleteFromCart(item.id);
+    });
+    resolve({ status: "success" });
   });
 }

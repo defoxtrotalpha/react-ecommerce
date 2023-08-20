@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -36,7 +35,6 @@ export default function Login() {
               dispatch(
                 checkUserAsync({ email: data.email, password: data.password })
               );
-              console.log(data);
             })}
             className="space-y-6"
           >
