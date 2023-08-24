@@ -36,7 +36,12 @@ export default function Order() {
         Name: {user.name ? user.name : "New User"}
       </h2>
       <h3 className="px-4 font-semibold text-gray-600">Email: {user.email}</h3>
-      <h3 className="px-4 mb-1 font-semibold text-gray-600">Your Addresses:</h3>
+      {user.role === "admin" && (
+        <h3 className="px-4 font-semibold text-red-600">Role: {user.role}</h3>
+      )}
+      <h3 className="px-4 mb-1 font-semibold text-gray-600">
+        Your Addresses: {user.addresses.length > 0 ? "" : "None"}
+      </h3>
       {user.addresses.map((address, index) => (
         <div key={index}>
           {(checkEdit[index] && (
@@ -229,7 +234,7 @@ export default function Order() {
         </div>
       ))}
       <button
-        className=" bg-green-600 px-4 mt-2 border-2 border-black text-white"
+        className=" bg-green-600 px-4 ml-4 mt-2 border-2 border-black text-white"
         onClick={() => setAddAddress(true)}
       >
         Add Address

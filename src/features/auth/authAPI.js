@@ -11,6 +11,12 @@ export function createUser(userData) {
   });
 }
 
+export function logout() {
+  return new Promise(async (resolve) => {
+    resolve({ data: "success" });
+  });
+}
+
 export function checkUser(logInInfo) {
   return new Promise(async (resolve, reject) => {
     const email = logInInfo.email;

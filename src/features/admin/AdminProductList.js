@@ -8,7 +8,10 @@ import {
   selectTotalItems,
   selectAllBrands,
   selectAllCategories,
-} from "../productSlice";
+  deleteProductAsync,
+  fetchProductByIdAsync,
+} from "../product/productSlice";
+import { Navigate } from "react-router-dom";
 
 import { Fragment } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
@@ -26,6 +29,7 @@ import {
   StarIcon,
 } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
+import { fetchProductById } from "../product/productAPI";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -37,7 +41,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function ProductList() {
+export default function AdminProductList() {
   const dispatch = useDispatch();
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [filterArr, setFilterArr] = useState([]);
@@ -100,113 +104,133 @@ export default function ProductList() {
     dispatch(fetchAllBrandsAsync());
   }, []);
 
+  const handleDelete = (prodId) => {
+    dispatch(deleteProductAsync(prodId));
+  };
+
+  const [editProd, setEditProd] = useState(false);
+
+  const handleEdit = (prodId) => {
+    dispatch(fetchProductByIdAsync(prodId));
+    setEditProd(true);
+  };
+
   return (
-    <div className="bg-white">
-      <div>
-        {/* Mobile filter dialog */}
-        <Mobilefilter
-          mobileFiltersOpen={mobileFiltersOpen}
-          setMobileFiltersOpen={setMobileFiltersOpen}
-          handleFilter={handleFilter}
-          filters={filters}
-        ></Mobilefilter>
+    <>
+      {editProd && (
+        <Navigate to="/admin/product-form" replace={true}></Navigate>
+      )}
+      <div className="bg-white">
+        <div>
+          {/* Mobile filter dialog */}
+          <Mobilefilter
+            mobileFiltersOpen={mobileFiltersOpen}
+            setMobileFiltersOpen={setMobileFiltersOpen}
+            handleFilter={handleFilter}
+            filters={filters}
+          ></Mobilefilter>
 
-        <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900">
-              All Products
-            </h1>
+          <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
+              <h1 className="text-4xl font-bold tracking-tight text-gray-900">
+                All Products
+              </h1>
 
-            <div className="flex items-center">
-              <Menu as="div" className="relative inline-block text-left">
-                <div>
-                  <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                    Sort
-                    <ChevronDownIcon
-                      className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                      aria-hidden="true"
-                    />
-                  </Menu.Button>
-                </div>
+              <div className="flex items-center">
+                <Menu as="div" className="relative inline-block text-left">
+                  <div>
+                    <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                      Sort
+                      <ChevronDownIcon
+                        className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                        aria-hidden="true"
+                      />
+                    </Menu.Button>
+                  </div>
 
-                <Transition
-                  as={Fragment}
-                  enter="transition ease-out duration-100"
-                  enterFrom="transform opacity-0 scale-95"
-                  enterTo="transform opacity-100 scale-100"
-                  leave="transition ease-in duration-75"
-                  leaveFrom="transform opacity-100 scale-100"
-                  leaveTo="transform opacity-0 scale-95"
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <div className="py-1">
+                        {sortOptions.map((option) => (
+                          <Menu.Item key={option.name}>
+                            {({ active }) => (
+                              <p
+                                onClick={(e) => {
+                                  handleSort(e, option);
+                                }}
+                                className={classNames(
+                                  option.current
+                                    ? "font-medium text-gray-900"
+                                    : "text-gray-500",
+                                  active ? "bg-gray-100" : "",
+                                  "block px-4 py-2 text-sm"
+                                )}
+                              >
+                                {option.name}
+                              </p>
+                            )}
+                          </Menu.Item>
+                        ))}
+                      </div>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+
+                <button
+                  type="button"
+                  className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7"
                 >
-                  <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <div className="py-1">
-                      {sortOptions.map((option) => (
-                        <Menu.Item key={option.name}>
-                          {({ active }) => (
-                            <p
-                              onClick={(e) => {
-                                handleSort(e, option);
-                              }}
-                              className={classNames(
-                                option.current
-                                  ? "font-medium text-gray-900"
-                                  : "text-gray-500",
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm"
-                              )}
-                            >
-                              {option.name}
-                            </p>
-                          )}
-                        </Menu.Item>
-                      ))}
-                    </div>
-                  </Menu.Items>
-                </Transition>
-              </Menu>
-
-              <button
-                type="button"
-                className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7"
-              >
-                <span className="sr-only">View grid</span>
-                <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
-                onClick={() => setMobileFiltersOpen(true)}
-              >
-                <span className="sr-only">Filters</span>
-                <FunnelIcon className="h-5 w-5" aria-hidden="true" />
-              </button>
+                  <span className="sr-only">View grid</span>
+                  <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
+                </button>
+                <button
+                  type="button"
+                  className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
+                  onClick={() => setMobileFiltersOpen(true)}
+                >
+                  <span className="sr-only">Filters</span>
+                  <FunnelIcon className="h-5 w-5" aria-hidden="true" />
+                </button>
+              </div>
             </div>
-          </div>
 
-          <section aria-labelledby="products-heading" className="pb-24 pt-6">
-            <h2 id="products-heading" className="sr-only">
-              Products
-            </h2>
+            <section aria-labelledby="products-heading" className="pb-24 pt-6">
+              <h2 id="products-heading" className="sr-only">
+                Products
+              </h2>
 
-            <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-              {/* Filters */}
-              <Desktopfilter
-                handleFilter={handleFilter}
-                filters={filters}
-              ></Desktopfilter>
+              <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
+                {/* Filters */}
+                <Desktopfilter
+                  handleFilter={handleFilter}
+                  filters={filters}
+                ></Desktopfilter>
 
-              {/* Product grid */}
-              <ProductGrid products={products}></ProductGrid>
-            </div>
-          </section>
-        </main>
+                {/* Product grid */}
+                <ProductGrid
+                  products={products}
+                  handleDelete={handleDelete}
+                  handleEdit={handleEdit}
+                ></ProductGrid>
+              </div>
+            </section>
+          </main>
+        </div>
+        <Pagination
+          handlePagination={handlePagination}
+          totalItems={totalItems}
+          pageArr={pageArr}
+        ></Pagination>
       </div>
-      <Pagination
-        handlePagination={handlePagination}
-        totalItems={totalItems}
-        pageArr={pageArr}
-      ></Pagination>
-    </div>
+    </>
   );
 }
 
@@ -493,57 +517,82 @@ function Desktopfilter({ handleFilter, filters }) {
   );
 }
 
-function ProductGrid({ products }) {
+function ProductGrid({ products, handleDelete, handleEdit }) {
   return (
     <div className="lg:col-span-3">
       {
         /* Our content */
         <div className="bg-white">
           <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
+            <Link to="/admin/product-form">
+              <button className=" bg-gray-500 px-4 py-1 mb-2 border-2 border-black text-white">
+                Add Product
+              </button>
+            </Link>
             <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
               {products.map((product) => (
-                <Link to={`/product-detail/${product.id}`}>
-                  <div key={product.id} className="group relative">
-                    <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-                      <img
-                        src={product.thumbnail}
-                        alt={product.title}
-                        className="h-full w-full object-cover object-center group-hover:opacity-75"
-                      />
-                    </div>
-                    <div className="mt-4 flex justify-between">
-                      <div>
-                        <h3 className="text-sm text-gray-700">
-                          <div href={product.thumbnail}>
-                            <span
-                              aria-hidden="true"
-                              className="absolute inset-0"
-                            />
-                            {product.title}
-                          </div>
-                        </h3>
-                        <p className="mt-1 text-sm text-gray-500">
-                          <StarIcon className="w-5 h-5 inline"></StarIcon>
-                          <span className=" align-bottom">
-                            {product.rating}
-                          </span>
-                        </p>
+                <div>
+                  <Link to={`/product-detail/${product.id}`}>
+                    <div key={product.id} className="group relative">
+                      <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+                        <img
+                          src={product.thumbnail}
+                          alt={product.title}
+                          className="h-full w-full object-cover object-center group-hover:opacity-75"
+                        />
                       </div>
-                      <div>
-                        <p className="text-sm block font-medium text-gray-900">
-                          $
-                          {Math.round(
-                            product.price *
-                              (1 - product.discountPercentage / 100)
-                          )}
-                        </p>
-                        <p className="text-sm block line-through font-medium text-gray-400">
-                          ${product.price}
-                        </p>
+                      <div className="mt-4 flex justify-between">
+                        <div>
+                          <h3 className="text-sm text-gray-700">
+                            <div href={product.thumbnail}>
+                              <span
+                                aria-hidden="true"
+                                className="absolute inset-0"
+                              />
+                              {product.title}
+                            </div>
+                          </h3>
+                          <p className="mt-1 text-sm text-gray-500">
+                            <StarIcon className="w-5 h-5 inline"></StarIcon>
+                            <span className=" align-bottom">
+                              {product.rating}
+                            </span>
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-sm block font-medium text-gray-900">
+                            $
+                            {Math.round(
+                              product.price *
+                                (1 - product.discountPercentage / 100)
+                            )}
+                          </p>
+                          <p className="text-sm block line-through font-medium text-gray-400">
+                            ${product.price}
+                          </p>
+                        </div>
                       </div>
                     </div>
+                  </Link>
+                  <div className="flex flex-row mt-1 space-x-2">
+                    <button
+                      className=" bg-green-300 px-2 border-2 border-black text-black"
+                      onClick={(e) => handleEdit(product.id)}
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      className=" bg-red-300 border-2 px-2 border-black text-black"
+                      onClick={(e) => handleDelete(product.id)}
+                    >
+                      Delete
+                    </button>
                   </div>
-                </Link>
+                  {product.isDeleted && (
+                    <p className="text-red-500">Product deleted</p>
+                  )}
+                </div>
               ))}
             </div>
           </div>

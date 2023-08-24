@@ -5,6 +5,9 @@ import {
   fetchAllCategories,
   fetchAllBrands,
   fetchProductById,
+  addProduct,
+  updateProduct,
+  deleteProduct,
 } from "./productAPI";
 
 const initialState = {
@@ -39,6 +42,24 @@ export const fetchProductByIdAsync = createAsyncThunk(
   }
 );
 
+export const updateProductAsync = createAsyncThunk(
+  "product/updateProduct",
+  async (update) => {
+    const response = await updateProduct(update);
+    // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  }
+);
+
+export const deleteProductAsync = createAsyncThunk(
+  "product/deleteProduct",
+  async (prodId) => {
+    const response = await deleteProduct(prodId);
+    // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  }
+);
+
 export const fetchAllBrandsAsync = createAsyncThunk(
   "Brand/fetchAllBrands",
   async () => {
@@ -66,13 +87,22 @@ export const fetchAllProductsByFiltersAsync = createAsyncThunk(
   }
 );
 
+export const addProductAsync = createAsyncThunk(
+  "product/addProduct",
+  async (productInfo) => {
+    const response = await addProduct(productInfo);
+    // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  }
+);
+
 export const productSlice = createSlice({
   name: "product",
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
-    increment: (state) => {
-      state.value += 1;
+    setSelectedProduct: (state) => {
+      state.selectedProduct = null;
     },
   },
   // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -114,9 +144,38 @@ export const productSlice = createSlice({
       .addCase(fetchProductByIdAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.selectedProduct = action.payload;
+      })
+      .addCase(addProductAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(addProductAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.products.push(action.payload);
+      })
+      .addCase(deleteProductAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(deleteProductAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        const index = state.products.findIndex(
+          (prod) => prod.id === action.payload.id
+        );
+        state.products[index].isDeleted = true;
+      })
+      .addCase(updateProductAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateProductAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        const index = state.products.findIndex(
+          (prod) => prod.id === action.payload.id
+        );
+        state.products[index] = action.payload;
       });
   },
 });
+
+export const { setSelectedProduct } = productSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

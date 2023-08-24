@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
 import { selectItems } from "../cart/cartSlice";
+import { selectLoggedInUserInfo } from "../user/userSlice";
 
 const user = {
   name: "Tom Cook",
@@ -15,18 +16,6 @@ const user = {
   imageUrl:
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
-const navigation = [
-  { name: "Shop with Us", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
-  { name: "Reports", href: "#", current: false },
-];
-const userNavigation = [
-  { name: "Your Profile", href: "/user-profile" },
-  { name: "My Orders", href: "/my-orders" },
-  { name: "Sign out", href: "/login" },
-];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -34,6 +23,25 @@ function classNames(...classes) {
 
 function NavBar({ children }) {
   const items = useSelector(selectItems);
+
+  const currUser = useSelector(selectLoggedInUserInfo);
+  let navigation = [];
+  if (currUser) {
+    navigation =
+      currUser.role === "admin"
+        ? [{ name: "Admin", href: "/admin/homepage", current: false }]
+        : [
+            { name: "Dashboard", href: "#", current: true },
+            { name: "Team", href: "#", current: false },
+          ];
+  }
+
+  const userNavigation = [
+    { name: "Your Profile", href: "/user-profile" },
+    { name: "My Orders", href: "/my-orders" },
+    { name: "Sign out", href: "/logout" },
+  ];
+
   return (
     <div className="min-h-full">
       <Disclosure as="nav" className="bg-gray-800">
@@ -54,9 +62,9 @@ function NavBar({ children }) {
                   <div className="hidden md:block">
                     <div className="ml-10 flex items-baseline space-x-4">
                       {navigation.map((item) => (
-                        <a
+                        <Link
                           key={item.name}
-                          href={item.href}
+                          to={item.href}
                           className={classNames(
                             item.current
                               ? "bg-gray-900 text-white"
@@ -66,7 +74,7 @@ function NavBar({ children }) {
                           aria-current={item.current ? "page" : undefined}
                         >
                           {item.name}
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
