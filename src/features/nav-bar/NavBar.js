@@ -29,11 +29,11 @@ function NavBar({ children }) {
   if (currUser) {
     navigation =
       currUser.role === "admin"
-        ? [{ name: "Admin", href: "/admin/homepage", current: false }]
-        : [
-            { name: "Dashboard", href: "#", current: true },
-            { name: "Team", href: "#", current: false },
-          ];
+        ? [
+            { name: "Admin", href: "/admin/homepage", current: false },
+            { name: "Orders", href: "/admin/orders", current: false },
+          ]
+        : [{ name: "Products", href: "#", current: true }];
   }
 
   const userNavigation = [

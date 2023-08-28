@@ -7,7 +7,7 @@
       "price": 549,
       "discountPercentage": 12.96,
       "rating": 4.69,
-      "stock": 94,
+      "stock": 0,
       "brand": "Apple",
       "category": "smartphones",
       "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
@@ -17,11 +17,12 @@
         "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
         "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
         "https://i.dummyjson.com/data/products/1/thumbnail.jpg"
-      ]
+      ],
+      "isDeleted": true
     },
     {
       "id": 2,
-      "title": "iPhone X",
+      "title": "iPhone Xs",
       "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
       "price": 899,
       "discountPercentage": 17.94,
@@ -33,9 +34,9 @@
       "images": [
         "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
         "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
         "https://i.dummyjson.com/data/products/2/1.jpg",
-        "https://i.dummyjson.com/data/products/2/2.jpg",
-        "https://i.dummyjson.com/data/products/2/3.jpg"
+        "https://i.dummyjson.com/data/products/2/2.jpg"
       ]
     },
     {
@@ -51,7 +52,8 @@
       "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
       "images": [
         "https://i.dummyjson.com/data/products/3/1.jpg"
-      ]
+      ],
+      "isDeleted": true
     },
     {
       "id": 4,
@@ -1846,7 +1848,7 @@
       "category": "laptops",
       "brand": "Apple",
       "price": "999",
-      "stock": "4",
+      "stock": 0,
       "discountPercentage": "5",
       "description": "Amazing Product",
       "thumbnail": "https://www.apple.com/v/macbook-air/q/images/overview/macbook_air_m1__dxctrdvvxm4i_large.jpg",
@@ -1860,26 +1862,6 @@
       "isDeleted": true,
       "rating": 5,
       "id": 101
-    },
-    {
-      "title": "asadad",
-      "category": "smartphones",
-      "brand": "Saaf & Khaas",
-      "price": "asa",
-      "stock": "saa",
-      "discountPercentage": "saasa",
-      "description": "asas",
-      "thumbnail": "asasa",
-      "images": [
-        "asasa",
-        "asa",
-        "https://i.dummyjson.com/data/products/2/2.jpg",
-        "asa",
-        "https://i.dummyjson.com/data/products/1/1.jpg"
-      ],
-      "isDeleted": false,
-      "rating": 5,
-      "id": 102
     }
   ],
   "categories": [
@@ -2091,29 +2073,138 @@
       "addresses": [],
       "role": "admin",
       "id": 3
+    },
+    {
+      "email": "malihazia12@gmail.com",
+      "password": "Malihasucks69",
+      "addresses": [
+        {
+          "name": "Maliha",
+          "email": "mal123@gmail.com",
+          "street": "222 St ZTE",
+          "city": "Karachi",
+          "state": "Sindh",
+          "zip": "12345",
+          "phone": "03124433434"
+        }
+      ],
+      "role": "user",
+      "id": 4
     }
   ],
   "cart": [
     {
-      "title": "Handcraft Chinese style",
-      "description": "Handcraft Chinese style art luxury palace hotel villa mansion home decor ceramic vase with brass fruit plate",
-      "price": 60,
-      "discountPercentage": 15.34,
-      "rating": 4.44,
-      "stock": 7,
-      "brand": "luxury palace",
-      "category": "home-decoration",
-      "thumbnail": "https://i.dummyjson.com/data/products/29/thumbnail.webp",
+      "title": "Iphone 9s",
+      "description": "An apple mobile which is nothing like apple we eat",
+      "price": 549,
+      "discountPercentage": 12.96,
+      "rating": 4.69,
+      "stock": 94,
+      "brand": "Apple",
+      "category": "smartphones",
+      "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
       "images": [
-        "https://i.dummyjson.com/data/products/29/1.jpg",
-        "https://i.dummyjson.com/data/products/29/2.jpg",
-        "https://i.dummyjson.com/data/products/29/3.webp",
-        "https://i.dummyjson.com/data/products/29/4.webp",
-        "https://i.dummyjson.com/data/products/29/thumbnail.webp"
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg"
       ],
       "quantity": 1,
+      "user": 3,
+      "id": 2
+    },
+    {
+      "title": "Iphone 9s",
+      "description": "An apple mobile which is nothing like apple we eat",
+      "price": 549,
+      "discountPercentage": 12.96,
+      "rating": 4.69,
+      "stock": 0,
+      "brand": "Apple",
+      "category": "smartphones",
+      "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+      "images": [
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg"
+      ],
+      "isDeleted": true,
+      "productId": 1,
+      "quantity": 1,
       "user": 1,
-      "id": 1
+      "id": 3
+    },
+    {
+      "title": "Iphone 9s",
+      "description": "An apple mobile which is nothing like apple we eat",
+      "price": 549,
+      "discountPercentage": 12.96,
+      "rating": 4.69,
+      "stock": 0,
+      "brand": "Apple",
+      "category": "smartphones",
+      "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+      "images": [
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg"
+      ],
+      "isDeleted": true,
+      "productId": 1,
+      "quantity": 1,
+      "user": 1,
+      "id": 4
+    },
+    {
+      "title": "Iphone 9s",
+      "description": "An apple mobile which is nothing like apple we eat",
+      "price": 549,
+      "discountPercentage": 12.96,
+      "rating": 4.69,
+      "stock": 0,
+      "brand": "Apple",
+      "category": "smartphones",
+      "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+      "images": [
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg"
+      ],
+      "isDeleted": true,
+      "productId": 1,
+      "quantity": 1,
+      "user": 1,
+      "id": 5
+    },
+    {
+      "title": "Iphone 9s",
+      "description": "An apple mobile which is nothing like apple we eat",
+      "price": 549,
+      "discountPercentage": 12.96,
+      "rating": 4.69,
+      "stock": 0,
+      "brand": "Apple",
+      "category": "smartphones",
+      "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+      "images": [
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/1/thumbnail.jpg"
+      ],
+      "isDeleted": true,
+      "productId": 1,
+      "quantity": 1,
+      "user": 1,
+      "id": 6
     }
   ],
   "orders": [
@@ -2217,7 +2308,7 @@
         "phone": "03335741353"
       },
       "paymentMethod": "card",
-      "status": "pending",
+      "status": "cancelled",
       "id": 7
     },
     {
@@ -2359,7 +2450,7 @@
         "phone": "03335741353"
       },
       "paymentMethod": "card",
-      "status": "pending",
+      "status": "delivered",
       "id": 8
     },
     {
@@ -2553,8 +2644,197 @@
         "phone": "0312222222"
       },
       "paymentMethod": "card",
-      "status": "pending",
+      "status": "approved",
       "id": 9
+    },
+    {
+      "items": [
+        {
+          "title": "Handcraft Chinese style",
+          "description": "Handcraft Chinese style art luxury palace hotel villa mansion home decor ceramic vase with brass fruit plate",
+          "price": 60,
+          "discountPercentage": 15.34,
+          "rating": 4.44,
+          "stock": 7,
+          "brand": "luxury palace",
+          "category": "home-decoration",
+          "thumbnail": "https://i.dummyjson.com/data/products/29/thumbnail.webp",
+          "images": [
+            "https://i.dummyjson.com/data/products/29/1.jpg",
+            "https://i.dummyjson.com/data/products/29/2.jpg",
+            "https://i.dummyjson.com/data/products/29/3.webp",
+            "https://i.dummyjson.com/data/products/29/4.webp",
+            "https://i.dummyjson.com/data/products/29/thumbnail.webp"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 1
+        }
+      ],
+      "totalItems": 1,
+      "totalPrice": 60,
+      "user": {
+        "email": "user1@test.com",
+        "password": "Qwerty123",
+        "id": 1,
+        "role": "user",
+        "addresses": [
+          {
+            "name": "Mals",
+            "email": "mal123@gmail.com",
+            "street": "222 St ZTE",
+            "city": "Karachi",
+            "state": "Sindh",
+            "zip": "12345",
+            "phone": "03124433434"
+          },
+          {
+            "name": "Bilal",
+            "email": "bilalkhan81897@live.com",
+            "street": "555 Rd",
+            "city": "Isb",
+            "state": "Federal",
+            "zip": "111",
+            "phone": "312222222"
+          }
+        ]
+      },
+      "selectedAddress": {
+        "name": "Bilal",
+        "email": "bilalkhan81897@live.com",
+        "street": "555 Rd",
+        "city": "Isb",
+        "state": "Federal",
+        "zip": "111",
+        "phone": "312222222"
+      },
+      "paymentMethod": "card",
+      "status": "dispatched",
+      "id": 10
+    },
+    {
+      "items": [
+        {
+          "title": "Iphone 9s",
+          "description": "An apple mobile which is nothing like apple we eat",
+          "price": 549,
+          "discountPercentage": 12.96,
+          "rating": 4.69,
+          "stock": 0,
+          "brand": "Apple",
+          "category": "smartphones",
+          "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+            "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+            "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+            "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+            "https://i.dummyjson.com/data/products/1/thumbnail.jpg"
+          ],
+          "isDeleted": true,
+          "productId": 1,
+          "quantity": 2,
+          "user": 1,
+          "id": 3
+        }
+      ],
+      "totalItems": 2,
+      "totalPrice": 1098,
+      "user": {
+        "email": "user1@test.com",
+        "password": "Qwerty123",
+        "id": 1,
+        "role": "user",
+        "addresses": [
+          {
+            "name": "Mals",
+            "email": "mal123@gmail.com",
+            "street": "222 St ZTE",
+            "city": "Karachi",
+            "state": "Sindh",
+            "zip": "12345",
+            "phone": "03124433434"
+          },
+          {
+            "name": "Bilal",
+            "email": "bilalkhan81897@live.com",
+            "street": "555 Rd",
+            "city": "Isb",
+            "state": "Federal",
+            "zip": "111",
+            "phone": "312222222"
+          }
+        ]
+      },
+      "selectedAddress": {
+        "name": "Bilal",
+        "email": "bilalkhan81897@live.com",
+        "street": "555 Rd",
+        "city": "Isb",
+        "state": "Federal",
+        "zip": "111",
+        "phone": "312222222"
+      },
+      "paymentMethod": "cash",
+      "status": "delivered",
+      "id": 11
+    },
+    {
+      "items": [
+        {
+          "title": "Eau De Perfume Spray",
+          "description": "Genuine  Al-Rehab spray perfume from UAE/Saudi Arabia/Yemen High Quality",
+          "price": 30,
+          "discountPercentage": 10.99,
+          "rating": 4.7,
+          "stock": 105,
+          "brand": "Lord - Al-Rehab",
+          "category": "fragrances",
+          "thumbnail": "https://i.dummyjson.com/data/products/15/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/15/1.jpg",
+            "https://i.dummyjson.com/data/products/15/2.jpg",
+            "https://i.dummyjson.com/data/products/15/3.jpg",
+            "https://i.dummyjson.com/data/products/15/4.jpg",
+            "https://i.dummyjson.com/data/products/15/thumbnail.jpg"
+          ],
+          "productId": 15,
+          "quantity": 1,
+          "user": 4,
+          "id": 3
+        }
+      ],
+      "totalItems": 1,
+      "totalPrice": 30,
+      "user": {
+        "email": "malihazia12@gmail.com",
+        "password": "Malihasucks69",
+        "addresses": [
+          {
+            "name": "Maliha",
+            "email": "mal123@gmail.com",
+            "street": "222 St ZTE",
+            "city": "Karachi",
+            "state": "Sindh",
+            "zip": "12345",
+            "phone": "03124433434"
+          }
+        ],
+        "role": "user",
+        "id": 4
+      },
+      "selectedAddress": {
+        "name": "Maliha",
+        "email": "mal123@gmail.com",
+        "street": "222 St ZTE",
+        "city": "Karachi",
+        "state": "Sindh",
+        "zip": "12345",
+        "phone": "03124433434"
+      },
+      "paymentMethod": "cash",
+      "status": "delivered",
+      "id": 12
     }
   ]
 }

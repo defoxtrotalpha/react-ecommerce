@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addOrder } from "./orderAPI.js";
+import { addOrder, fetchAllOrders, updateOrder } from "./orderAPI.js";
 
 const initialState = {
   orders: [],
   status: "idle",
   currentOrder: null,
+  totalOrders: 0,
 };
 
 // The function below is called a thunk and allows us to perform async logic. It
@@ -17,6 +18,24 @@ export const addOrderAsync = createAsyncThunk(
   "order/addOrder",
   async (order) => {
     const response = await addOrder(order);
+    // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  }
+);
+
+export const updateOrderAsync = createAsyncThunk(
+  "order/updateOrder",
+  async (update) => {
+    const response = await updateOrder(update);
+    // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  }
+);
+
+export const fetchAllOrdersAsync = createAsyncThunk(
+  "order/fetchAllOrders",
+  async (pageArr) => {
+    const response = await fetchAllOrders(pageArr);
     // The value we return becomes the `fulfilled` action payload
     return response.data;
   }
@@ -46,6 +65,24 @@ export const orderSlice = createSlice({
         state.status = "idle";
         state.orders.push(action.payload);
         state.currentOrder = action.payload;
+      })
+      .addCase(fetchAllOrdersAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchAllOrdersAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.totalOrders = action.payload.totalOrders;
+        state.orders = action.payload.orders;
+      })
+      .addCase(updateOrderAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateOrderAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        const index = state.orders.findIndex(
+          (order) => order.id === action.payload.id
+        );
+        state.orders[index] = action.payload;
       });
   },
 });
@@ -54,6 +91,8 @@ export const orderSlice = createSlice({
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectCurrentOrder = (state) => state.order.currentOrder;
+export const selectAllOrders = (state) => state.order.orders;
+export const selectTotalOrdersNo = (state) => state.order.totalOrders;
 
 export const { resetCurrentOrder } = orderSlice.actions;
 

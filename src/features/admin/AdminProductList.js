@@ -10,16 +10,14 @@ import {
   selectAllCategories,
   deleteProductAsync,
   fetchProductByIdAsync,
+  setSelectedProduct,
 } from "../product/productSlice";
 import { Navigate } from "react-router-dom";
+import Pagination from "../pagination/Pagination";
 
 import { Fragment } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
-import {
-  XMarkIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-} from "@heroicons/react/24/outline";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   ChevronDownIcon,
   FunnelIcon,
@@ -29,7 +27,6 @@ import {
   StarIcon,
 } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
-import { fetchProductById } from "../product/productAPI";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -96,12 +93,9 @@ export default function AdminProductList() {
   }, [dispatch, filterArr, sortArr, pageArr]);
 
   useEffect(() => {
-    setPageArr([{ _page: 1 }, { _limit: 10 }]);
-  }, [totalItems, sortArr]);
-
-  useEffect(() => {
     dispatch(fetchAllCategoriesAsync());
     dispatch(fetchAllBrandsAsync());
+    dispatch(setSelectedProduct());
   }, []);
 
   const handleDelete = (prodId) => {
@@ -231,110 +225,6 @@ export default function AdminProductList() {
         ></Pagination>
       </div>
     </>
-  );
-}
-
-function Pagination({ handlePagination, totalItems, pageArr }) {
-  const showFullPagination = totalItems > pageArr[1]._limit;
-  const totalPages = Math.ceil(totalItems / pageArr[1]._limit);
-
-  return (
-    <div className="flex flex-col items-center justify-center border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
-      <div className="flex items-center w-full sm:hidden">
-        {/* Display page number and total items */}
-        <p className="text-sm px-2 text-gray-700">
-          Showing{" "}
-          {pageArr[0]._page === 1
-            ? 1
-            : (pageArr[0]._page - 1) * pageArr[1]._limit + 1}
-          -{Math.min(pageArr[0]._page * pageArr[1]._limit, totalItems)} of{" "}
-          {totalItems} results
-        </p>
-        <button
-          onClick={() =>
-            handlePagination(pageArr[0]._page - 1, pageArr[1]._limit)
-          }
-          disabled={pageArr[0]._page === 1}
-          className="py-1 px-2 text-gray-500 rounded-md hover:bg-gray-100 focus:outline-none"
-        >
-          <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
-        </button>
-        <button
-          onClick={() =>
-            handlePagination(pageArr[0]._page + 1, pageArr[1]._limit)
-          }
-          disabled={pageArr[0]._page === totalPages}
-          className="py-1 px-2 text-gray-500  rounded-md hover:bg-gray-100 focus:outline-none"
-        >
-          <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
-        </button>
-      </div>
-      <div className="hidden sm:flex sm:items-center sm:justify-between w-full">
-        <p className="text-sm text-gray-700">
-          Showing{" "}
-          {pageArr[0]._page === 1
-            ? 1
-            : (pageArr[0]._page - 1) * pageArr[1]._limit + 1}
-          -{Math.min(pageArr[0]._page * pageArr[1]._limit, totalItems)} of{" "}
-          {totalItems} results
-        </p>
-
-        <div className="flex flex-row">
-          <p className="text-sm text-gray-700 py-1">Items per page?</p>
-          <input
-            className="border border-gray-400 mx-2 py-1 text-sm rounded-md w-1/4"
-            type="number"
-            min="10"
-            oninput="validity.valid || (value = '1');"
-            placeholder="10"
-            pattern="[1-9][0-9]*"
-            onChange={(e) => handlePagination(1, e.target.value)}
-          ></input>
-        </div>
-
-        <div className="flex space-x-2">
-          <button
-            onClick={() =>
-              handlePagination(pageArr[0]._page - 1, pageArr[1]._limit)
-            }
-            disabled={pageArr[0]._page === 1}
-            className="px-2 py-1 text-gray-500 rounded-md hover:bg-gray-100 focus:outline-none"
-          >
-            <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
-          </button>
-          {showFullPagination ? (
-            <>
-              {Array.from({ length: totalPages }).map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => handlePagination(index + 1, pageArr[1]._limit)}
-                  className={`px-2 py-1 text-sm rounded-md ${
-                    index + 1 === pageArr[0]._page
-                      ? "bg-indigo-600 text-white"
-                      : "text-gray-500 hover:bg-gray-100"
-                  } focus:outline-none`}
-                >
-                  {index + 1}
-                </button>
-              ))}
-            </>
-          ) : (
-            <p className="text-sm text-gray-700">
-              Page {pageArr[0]._page} of {totalPages}
-            </p>
-          )}
-          <button
-            onClick={() =>
-              handlePagination(pageArr[0]._page + 1, pageArr[1]._limit)
-            }
-            disabled={pageArr[0]._page === totalPages}
-            className="px-2 py-1 text-gray-500 rounded-md hover:bg-gray-100 focus:outline-none"
-          >
-            <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
-          </button>
-        </div>
-      </div>
-    </div>
   );
 }
 
@@ -525,13 +415,13 @@ function ProductGrid({ products, handleDelete, handleEdit }) {
         <div className="bg-white">
           <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
             <Link to="/admin/product-form">
-              <button className=" bg-gray-500 px-4 py-1 mb-2 border-2 border-black text-white">
+              <button className=" bg-gray-500 rounded-full px-4 py-1 mb-2 border-2 border-black text-white">
                 Add Product
               </button>
             </Link>
-            <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-              {products.map((product) => (
-                <div>
+            <div className="grid grid-cols-1 gap-x-2 gap-y-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+              {products.map((product, index) => (
+                <div key={index} className="border p-2">
                   <Link to={`/product-detail/${product.id}`}>
                     <div key={product.id} className="group relative">
                       <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
@@ -574,24 +464,27 @@ function ProductGrid({ products, handleDelete, handleEdit }) {
                       </div>
                     </div>
                   </Link>
+                  {product.isDeleted && (
+                    <p className="text-red-500 text-xs">Product deleted</p>
+                  )}
+                  {product.stock === 0 && (
+                    <p className="text-red-500 text-xs">Product out of stock</p>
+                  )}
                   <div className="flex flex-row mt-1 space-x-2">
                     <button
-                      className=" bg-green-300 px-2 border-2 border-black text-black"
+                      className=" bg-green-300 rounded-full px-2 border-2 border-black text-black"
                       onClick={(e) => handleEdit(product.id)}
                     >
                       Edit
                     </button>
 
                     <button
-                      className=" bg-red-300 border-2 px-2 border-black text-black"
+                      className=" bg-red-300 rounded-full border-2 px-2 border-black text-black"
                       onClick={(e) => handleDelete(product.id)}
                     >
                       Delete
                     </button>
                   </div>
-                  {product.isDeleted && (
-                    <p className="text-red-500">Product deleted</p>
-                  )}
                 </div>
               ))}
             </div>
