@@ -6,25 +6,36 @@ export default function Cart() {
   const items = useSelector(selectItems);
   const dispatch = useDispatch();
 
-  const handleQty = (product, type) => {
+  const discountedPrice = (prod) => {
+    return (
+      Math.round(prod.price * (1 - prod.discountPercentage / 100) * 100) / 100
+    );
+  };
+
+  const handleQty = (item, type) => {
     if (type === "inc") {
-      const newProd = { ...product, quantity: +product.quantity + 1 };
+      const newProd = { id: item.id, quantity: +item.quantity + 1 };
       dispatch(updateCartAsync(newProd));
     } else {
-      if (product.quantity !== 1) {
-        const newProd = { ...product, quantity: +product.quantity - 1 };
+      if (item.quantity !== 1) {
+        const newProd = { id: item.id, quantity: +item.quantity - 1 };
         dispatch(updateCartAsync(newProd));
       }
     }
   };
 
-  const totalPrice = items.reduce(
-    (amount, item) => item.price * item.quantity + amount,
-    0
-  );
+  const totalPrice =
+    Math.round(
+      items.reduce(
+        (amount, item) =>
+          discountedPrice(item.product) * item.quantity + amount,
+        0
+      ) * 100
+    ) / 100;
 
   const totalItems = items.reduce((total, item) => item.quantity + total, 0);
-  const handleRemove = (e, id) => {
+
+  const handleRemove = (id) => {
     dispatch(deleteFromCartAsync(id));
   };
 
@@ -52,25 +63,30 @@ export default function Cart() {
               </h3>
             </div>
             {items.length > 0 &&
-              items.map((product, index) => (
-                <div className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
+              items.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5"
+                >
                   <div className="flex w-3/5">
                     {/* product */}
                     <div className="w-20">
                       <img
                         className="h-24"
-                        src={product.thumbnail}
-                        alt={product.title}
+                        src={item.product.thumbnail}
+                        alt={item.product.title}
                       />
                     </div>
                     <div className="flex flex-col justify-between ml-4 flex-grow">
-                      <span className="font-bold text-sm">{product.title}</span>
+                      <span className="font-bold text-sm">
+                        {item.product.title}
+                      </span>
                       <span className="text-red-500 text-xs">
-                        {product.brand}
+                        {item.product.brand}
                       </span>
                       <p
                         className="font-semibold text-indigo-500 text-xs cursor-pointer "
-                        onClick={(e) => handleRemove(e, product.id)}
+                        onClick={() => handleRemove(item.id)}
                       >
                         Remove
                       </p>
@@ -81,7 +97,7 @@ export default function Cart() {
                       className="fill-current text-gray-600 w-3"
                       viewBox="0 0 448 512"
                       onClick={(e) => {
-                        handleQty(product, "dec");
+                        handleQty(item, "dec");
                       }}
                     >
                       <path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
@@ -89,20 +105,23 @@ export default function Cart() {
                     <input
                       className="mx-2 border text-center w-12"
                       type="text"
-                      value={product.quantity}
+                      value={item.quantity}
                     />
                     <svg
                       className="fill-current text-gray-600 w-3"
                       viewBox="0 0 448 512"
                       onClick={(e) => {
-                        handleQty(product, "inc");
+                        handleQty(item, "inc");
                       }}
                     >
                       <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
                     </svg>
                   </div>
                   <span className="text-center w-1/5 font-semibold text-sm">
-                    {product.price * product.quantity}$
+                    {Math.round(
+                      discountedPrice(item.product) * item.quantity * 100
+                    ) / 100}
+                    $
                   </span>
                 </div>
               ))}

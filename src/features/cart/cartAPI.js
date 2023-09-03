@@ -6,7 +6,6 @@ export function addToCart(item) {
       headers: { "content-type": "application/json" },
     });
     const data = await response.json();
-    //TO DO: On server it will only relevant information about the user (not password)
     resolve({ data });
   });
 }
@@ -19,19 +18,18 @@ export function updateCart(update) {
       headers: { "content-type": "application/json" },
     });
     const data = await response.json();
-    //TO DO: On server it will only relevant information about the user (not password)
     resolve({ data });
   });
 }
 
 export function deleteFromCart(itemId) {
   return new Promise(async (resolve) => {
-    await fetch(`http://localhost:8080/cart/` + itemId, {
+    const response = await fetch(`http://localhost:8080/cart/` + itemId, {
       method: "DELETE",
       headers: { "content-type": "application/json" },
     });
-    //TO DO: On server it will only relevant information about the user (not password)
-    resolve({ status: "success" });
+    const data = await response.json();
+    resolve({ data });
   });
 }
 

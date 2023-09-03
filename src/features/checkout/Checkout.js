@@ -12,10 +12,21 @@ export default function Checkout() {
   const items = useSelector(selectItems);
   const dispatch = useDispatch();
 
-  const totalPrice = items.reduce(
-    (amount, item) => item.price * item.quantity + amount,
-    0
-  );
+  const discountedPrice = (prod) => {
+    return (
+      Math.round(prod.price * (1 - prod.discountPercentage / 100) * 100) / 100
+    );
+  };
+
+  const totalPrice =
+    Math.round(
+      items.reduce(
+        (amount, item) =>
+          discountedPrice(item.product) * item.quantity + amount,
+        0
+      ) * 100
+    ) / 100;
+  console.log(totalPrice);
 
   const totalItems = items.reduce((total, item) => item.quantity + total, 0);
   const handleRemove = (e, id) => {
@@ -44,7 +55,7 @@ export default function Checkout() {
         items,
         totalItems,
         totalPrice,
-        user,
+        user: user.id,
         selectedAddress,
         paymentMethod,
         status: "pending", // Other status can be 'delivered' or 'received'
@@ -73,13 +84,21 @@ export default function Checkout() {
         <div className="px-4 pt-8 mb-6 mr-4 rounded-md">
           <form
             onSubmit={handleSubmit((data) => {
-              console.log(data);
-              dispatch(
-                updateUserAsync({
-                  ...user,
-                  addresses: [...user.addresses, data],
-                })
-              );
+              if (user.addresses) {
+                dispatch(
+                  updateUserAsync({
+                    ...user,
+                    addresses: [...user.addresses, data],
+                  })
+                );
+              } else {
+                dispatch(
+                  updateUserAsync({
+                    ...user,
+                    addresses: [data],
+                  })
+                );
+              }
               reset();
             })}
           >
@@ -307,11 +326,11 @@ export default function Checkout() {
                 >
                   <img
                     className="m-2 h-30 w-28 rounded-md border object-cover object-center"
-                    src={item.thumbnail}
-                    alt={item.title}
+                    src={item.product.thumbnail}
+                    alt={item.product.title}
                   />
                   <div className="flex w-full flex-col px-4 py-4">
-                    <span className="font-semibold">{item.title}</span>
+                    <span className="font-semibold">{item.product.title}</span>
                     <span
                       className="font-semibold text-indigo-500 text-xs cursor-pointer text-right"
                       onClick={(e) => handleRemove(e, item.id)}
@@ -319,13 +338,13 @@ export default function Checkout() {
                       Remove
                     </span>
                     <span className="float-right text-gray-400 text-xs">
-                      Brand: {item.brand}
+                      Brand: {item.product.brand}
                     </span>
                     <span className="float-right text-gray-400 text-xs">
                       Quantity: {item.quantity}
                     </span>
                     <p className="text-lg font-bold">
-                      ${item.price * item.quantity}
+                      ${discountedPrice(item.product) * item.quantity}
                     </p>
                   </div>
                 </div>

@@ -23,6 +23,7 @@ import {
   StarIcon,
 } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
+import { selectLoggedInUserInfo } from "../../user/userSlice";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -83,10 +84,18 @@ export default function ProductList() {
       setPageArr(newPageArr);
     }
   };
+  const user = useSelector(selectLoggedInUserInfo);
 
   useEffect(() => {
-    dispatch(fetchAllProductsByFiltersAsync({ filterArr, sortArr, pageArr }));
-  }, [dispatch, filterArr, sortArr, pageArr]);
+    dispatch(
+      fetchAllProductsByFiltersAsync({
+        filterArr,
+        sortArr,
+        pageArr,
+        user: user.role,
+      })
+    );
+  }, [dispatch, filterArr, sortArr, pageArr, user]);
 
   useEffect(() => {
     dispatch(fetchAllCategoriesAsync());

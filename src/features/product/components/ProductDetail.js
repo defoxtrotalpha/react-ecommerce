@@ -40,12 +40,12 @@ export default function ProductDetail() {
   const handleCart = (e) => {
     e.preventDefault();
     const index = itemsInCart.findIndex(
-      (item) => item.productId === product.id
+      (item) => item.product.id === product.id
     );
     if (index < 0) {
-      const newItem = { ...product, productId: product.id };
-      delete newItem["id"];
-      dispatch(addToCartAsync({ ...newItem, quantity: 1, user: user.id }));
+      dispatch(
+        addToCartAsync({ product: product.id, quantity: 1, user: user.id })
+      );
     } else console.log("Product already added");
   };
 

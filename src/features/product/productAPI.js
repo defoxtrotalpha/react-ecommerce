@@ -44,7 +44,7 @@ export function updateProduct(update) {
   });
 }
 
-export function fetchProductsByFilters(filterArr, sortArr, pageArr) {
+export function fetchProductsByFilters(filterArr, sortArr, pageArr, user) {
   return new Promise(async (resolve) => {
     //filterArr = {"category":"smartphone"}
     //endpoint= "http://localhost:8080/products?category=smartphone&price=10&.."
@@ -68,9 +68,15 @@ export function fetchProductsByFilters(filterArr, sortArr, pageArr) {
       });
     }
 
-    const response = await fetch(
-      "http://localhost:8080/products?" + queryString
-    );
+    let response;
+    if (user === "user") {
+      response = await fetch("http://localhost:8080/products?" + queryString);
+    } else {
+      response = await fetch(
+        "http://localhost:8080/products/admin?" + queryString
+      );
+    }
+
     const data = await response.json();
     const totalItems = await response.headers.get("X-Total-Count");
     resolve({

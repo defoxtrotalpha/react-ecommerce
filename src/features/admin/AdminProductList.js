@@ -27,6 +27,7 @@ import {
   StarIcon,
 } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
+import { selectLoggedInUserInfo } from "../user/userSlice";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -48,6 +49,7 @@ export default function AdminProductList() {
   const totalItems = useSelector(selectTotalItems);
   const brands = useSelector(selectAllBrands);
   const categories = useSelector(selectAllCategories);
+  const user = useSelector(selectLoggedInUserInfo);
 
   const filters = [
     {
@@ -89,7 +91,14 @@ export default function AdminProductList() {
   };
 
   useEffect(() => {
-    dispatch(fetchAllProductsByFiltersAsync({ filterArr, sortArr, pageArr }));
+    dispatch(
+      fetchAllProductsByFiltersAsync({
+        filterArr,
+        sortArr,
+        pageArr,
+        user: user.role,
+      })
+    );
   }, [dispatch, filterArr, sortArr, pageArr]);
 
   useEffect(() => {

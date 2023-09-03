@@ -50,16 +50,13 @@ export default function Login() {
                   id="email"
                   {...register("email", {
                     required: "Email address is required",
-                    pattern: {
-                      value:
-                        /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
-                      message: "Email address not valid",
-                    },
                   })}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
-              {error && <p className="text-red-500">{error.message}</p>}
+              {errors.email && (
+                <p className="text-red-500">{errors.email.message}</p>
+              )}
             </div>
 
             <div>
@@ -84,15 +81,6 @@ export default function Login() {
                   id="password"
                   {...register("password", {
                     required: "Password is required",
-                    pattern: {
-                      value:
-                        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
-                      message:
-                        "- at least 8 characters" +
-                        `\n` +
-                        `- must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number\n
-                  - Can contain special characters`,
-                    },
                   })}
                   type="password"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -101,6 +89,7 @@ export default function Login() {
               {errors.password && (
                 <p className="text-red-500">{errors.password.message}</p>
               )}
+              {error && <p className="text-red-500">{error.message}</p>}
             </div>
 
             <div>

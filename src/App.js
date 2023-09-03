@@ -1,5 +1,4 @@
 import "./App.css";
-import SignUp from "./features/auth/components/SignUp";
 import Homepage from "./pages/Homepage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";

@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchOrdersByUserIdAsync, selectUserOrders } from "../user/userSlice";
+import {
+  fetchOrdersByUserIdAsync,
+  selectUserOrders,
+} from "../order/orderSlice";
 import { selectLoggedInUserInfo } from "../user/userSlice";
 
 export default function Order() {
@@ -11,7 +14,14 @@ export default function Order() {
     if (user) dispatch(fetchOrdersByUserIdAsync(user.id));
   }, [user, dispatch]);
 
+  const discountedPrice = (prod) => {
+    return (
+      Math.round(prod.price * (1 - prod.discountPercentage / 100) * 100) / 100
+    );
+  };
+
   const orders = useSelector(selectUserOrders);
+  console.log(orders);
 
   return (
     <div>
@@ -32,19 +42,21 @@ export default function Order() {
                   <div key={i} className="flex flex-row border">
                     <img
                       className="m-2 h-30 w-28 rounded-md border object-cover object-center"
-                      src={item.thumbnail}
-                      alt={item.title}
+                      src={item.product.thumbnail}
+                      alt={item.product.title}
                     />
                     <div className="flex w-full flex-col px-4 py-4">
-                      <span className="font-semibold">{item.title}</span>
+                      <span className="font-semibold">
+                        {item.product.title}
+                      </span>
                       <span className="float-right text-gray-400 text-xs">
-                        Brand: {item.brand}
+                        Brand: {item.product.brand}
                       </span>
                       <span className="float-right text-gray-400 text-xs">
                         Quantity: {item.quantity}
                       </span>
                       <p className="text-lg font-bold">
-                        ${item.price * item.quantity}
+                        ${discountedPrice(item.product) * item.quantity}
                       </p>
                     </div>
                   </div>
@@ -85,11 +97,12 @@ export default function Order() {
               </p>
               <div className="flex w-full mb-4 flex-col px-4">
                 <p className="float-right text-gray-400">
-                  {order.selectedAddress.street}, {order.selectedAddress.city}{" "}
-                  {order.selectedAddress.state}
+                  {order.selectedAddress[0].street},{" "}
+                  {order.selectedAddress[0].city}{" "}
+                  {order.selectedAddress[0].state}
                 </p>
                 <p className="float-right text-gray-400">
-                  {order.selectedAddress.phone}
+                  {order.selectedAddress[0].phone}
                 </p>
               </div>
             </div>
